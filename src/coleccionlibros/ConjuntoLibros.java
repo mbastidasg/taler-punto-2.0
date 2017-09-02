@@ -10,82 +10,73 @@ package coleccionlibros;
  * @author ESTUDIANTE
  */
 public class ConjuntoLibros {
- 
+
     Libros[] libro;
     private int cantidad;
-    public ConjuntoLibros (int cantidad) {
-        this.libro = new Libros[10];
-    }
-    
-    public boolean anadir (String Titulo, String autor, int numPags, int calificacion){
-        Libros libro = new Libros (Titulo, autor, numPags, calificacion);
-        if(this.cantidad < 10){
-         this.libro[this.cantidad] = libro;
-         this.cantidad++;
-         return true;
-      }else 
-          return false;
-    }
-        
-    
-    
-    public boolean eliminar (String Titulo, String autor){
-      
-        for (int i=0; i<10;i++){
-            if (this.libro[i].getTitulo().equals(Titulo) || this.libro[i].getAutor().equals(autor)){
-                this.libro= null;
-               this.cantidad--;
-               return true;
-            }  else{
-                System.out.println("No se pudo eliminar el libro");
-                
-                }
 
-}
-       return false;
+    public ConjuntoLibros(int cantidad) {
+        this.cantidad = 0;
+        this.libro = new Libros[cantidad];
     }
-    
-    public Libros mostrarMM(String Titulo, int calificacion){
-        for (int y=0; y<10; y++){
-            if (this.libro[y].getCalificacion()==calificacion){
-                int AUX=0;
-                 AUX = calificacion;
-              if (calificacion >= AUX){
-                  AUX = calificacion;
-                  
-              } else {
-                  
-              }
-                System.out.println("El libro con la calificacion mas alta es:" + this.libro[y]);
-                return libro[y];
-            }
-        }
-        for (int y=0; y<10; y++){
-            if (this.libro[y].getCalificacion()==calificacion){
-                int AUX=0;
-                 AUX = calificacion;
-              if (calificacion <= AUX){
-                  AUX = calificacion;
-              } else {
-                  
-              }
-                System.out.println("El libro con la calificacion mas baja es:" + this.libro[y]);
-                return libro[y];
-            }
+
+    public boolean anadir(String Titulo, String autor, int numPags, int calificacion) {
+        Libros libro = new Libros(Titulo, autor, numPags, calificacion);
+        if (this.cantidad < 10) {
+            this.libro[this.cantidad] = libro;
+            this.cantidad++;
+            return true;
+        } else {
+            return false;
         }
     }
-    
-    public Libros darInformacionLibros(String Titulo){
-         Libros libro = null;
-         for (int i = 0; i < this.cantidad; i++) {
-           if(this.libro[i].getTitulo().equals(Titulo)){
-           libro = this.libro[i];
-              break;
-           }   
-         }
+
+    public boolean eliminar(String Titulo, String autor) {
+        int indice = cantidad;
+        boolean borro = false;
+        for (int i = 0; i < cantidad; i++) {
+            if (this.libro[i].getTitulo().equals(Titulo) || this.libro[i].getAutor().equals(autor)) {
+                this.libro = null;
+                indice = i;
+                borro = true;
+                break;
+            }
+        }
+        for (int i = indice; i < cantidad-1; i++) {
+            this.libro[i] = this.libro[i + 1];
+        }
+        cantidad--;
+        return borro;
+    }
+
+    public void mostrarMM() {
+        int calificacion = 0, indice = 0;
+        for (int y = 0; y < cantidad; y++) {
+            if (this.libro[y].getCalificacion() > calificacion) {
+                calificacion = this.libro[y].getCalificacion();
+                indice = y;
+            }
+        }
+        System.out.println("El libro con la calificacion mas alta es:" + this.libro[indice].getTitulo());
+
+        for (int y = 0; y < cantidad; y++) {
+            if (this.libro[y].getCalificacion() < calificacion) {
+                calificacion = this.libro[y].getCalificacion();
+                indice = y;
+            }
+        }
+        System.out.println("El libro con la calificacion mas baja es:" + this.libro[indice].getTitulo());
+    }
+
+    public Libros darInformacionLibros(String Titulo) {
+        Libros libro = null;
+        for (int i = 0; i < this.cantidad; i++) {
+            if (this.libro[i].getTitulo().equals(Titulo)) {
+                libro = this.libro[i];
+                break;
+            }
+        }
         return libro;
     }
-
 
     public Libros[] getLibro() {
         return libro;
@@ -102,8 +93,5 @@ public class ConjuntoLibros {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-    
-    
-    
-    
+
 }

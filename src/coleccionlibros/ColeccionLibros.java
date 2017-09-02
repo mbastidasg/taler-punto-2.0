@@ -20,8 +20,8 @@ public class ColeccionLibros {
        
         ConjuntoLibros conjunto = new ConjuntoLibros (10);
         Scanner in = new Scanner(System.in);
-        int continuar = 1, opcion = 0;
-        
+        int continuar = 1, opcion = 0, calificacion = 0;
+        String  Titulo=""; 
         do{
             System.out.println("1. Anadir libro");
             System.out.println("2. Eliminar libro");
@@ -30,23 +30,22 @@ public class ColeccionLibros {
             opcion = in.nextInt();
             if(opcion == 1){
                 System.out.println("Ingrese el nombre del libro");
-                String Titulo = in.next();
+                 Titulo = in.next();
                 System.out.println("Ingrese el nombre del autor del libro");
                 String autor = in.next();
                 System.out.println("Ingrese el numero de paginas que tiene el libro");
                 int numPags= in.nextInt();
                 System.out.println("Ingrese la calificacion que merece el libro");
-                int calificacion= in.nextInt();
+                 calificacion= in.nextInt();
                 boolean resultado = conjunto.anadir(Titulo, autor, numPags, calificacion);
                 if(resultado == true){
                     System.out.println("Se ha añadido satisfactoriamente el libro");
                 }else{
                     System.out.println("Problemas al añadir el libro");
                 }
-    }
-            if (opcion == 2){
+    }else if (opcion == 2){
                 System.out.println("Ingrese el titulo o  del libro que desea eliminar");
-                String Titulo  = in.next();
+                 Titulo  = in.next();
                 System.out.println("Ingrese el autor");
                 String autor = in.next();
                 boolean resultado2 = conjunto.eliminar(Titulo, autor);
@@ -55,11 +54,16 @@ public class ColeccionLibros {
                 }else{
                     System.out.println("Problemas al eliminar el libro");
                 }
-            }
-            if (opcion == 3){
-               Libros libro=conjunto.mostrarMM(Titulo, opcion);
+            }else if (opcion == 3){
+               conjunto.mostrarMM();
+            } else if (opcion == 4){
+                System.out.println("Ingrese el nombre del libro del cual desea ver la informacion");
+                 Titulo = in.next();
+                conjunto.darInformacionLibros(Titulo);
+            }{
+                System.exit(0);
             }
     
-}
+} while (opcion==4||opcion==3||opcion==2||opcion==1);
 }
 }
